@@ -1,5 +1,5 @@
-let attackingSoldiers = prompt("how many soldirs are you attacking with?");
-let defendingSoldiers = prompt("how many soldirs are you defending with?");
+let attackingSoldiers = prompt("how many soldiers are you attacking with?");
+let defendingSoldiers = prompt("how many soldiers are you defending with?");
 let generalCounter = 0;
 let marshallCounter = 0;
 function attacker1() {
