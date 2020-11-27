@@ -2,6 +2,8 @@ let attackingSoldiers = prompt("how many soldiers are you attacking with?");
 let defendingSoldiers = prompt("how many soldiers are you defending with?");
 let generalCounter = 0;
 let marshallCounter = 0;
+var marshallAlive = false;
+var generalAlive = false;
 function attacker1() {
   let attackerOrder = [];
   let defenderOrder = [];
@@ -10,12 +12,16 @@ function attacker1() {
   let attack3 = Math.floor(Math.random() * 6) + 1;
   let defend1 = Math.floor(Math.random() * 6) + 1;
   let defend2 = Math.floor(Math.random() * 6) + 1;
-  if(generalCounter === 0){
-  var general = confirm('Are you using a general?');
+  if (generalCounter === 0 && generalAlive === false) {
+    var general = confirm("Are you using a general?");
+  } else if (generalAlive === true){
+    general = true;
   }
-  if(marshallCounter === 0){
-  var marshall = confirm('Are you using a marshall?')
-  }
+  if (marshallCounter === 0 && marshallAlive === false) {
+    var marshall = confirm("Are you using a marshall?");
+  } else if (marshallAlive === true){
+    marshall = true;
+  } 
   //if attack 1 is biggest put it in the front
   if (attack1 >= attack2 && attack1 >= attack3) {
     attackerOrder.push(attack1);
@@ -73,59 +79,63 @@ function attacker1() {
   else {
     attackerOrder.unshift(attack3);
   }
-  if(general === true && generalCounter === 0){
+  if (general === true && generalCounter === 0) {
     attackerOrder[2]++;
-  } else{
-    generalCounter = 1
+    generalAlive = true;
+  } else {
+    generalCounter = 1;
   }
-  console.log(attackerOrder + ' attack');
+  console.log(attackerOrder + " attack");
 
   //check order of defender dice
-  if(defend1>=defend2){
-      defenderOrder.unshift(defend1);
-      defenderOrder.unshift(defend2);
-  } else{
+  if (defend1 >= defend2) {
+    defenderOrder.unshift(defend1);
+    defenderOrder.unshift(defend2);
+  } else {
     defenderOrder.unshift(defend2);
     defenderOrder.unshift(defend1);
   }
-  if(marshall === true && marshallCounter == 0){
+  if (marshall === true && marshallCounter === 0) {
     defenderOrder[1]++;
-  } else{
-    marshallCounter = 1
+    marshallAlive = true;
+  } else {
+    marshallCounter = 1;
   }
-  console.log(defenderOrder + ' defend');
+  console.log(defenderOrder + " defend");
 
-   if(defenderOrder[1] < attackerOrder[2] && marshall === true){
+  if (defenderOrder[1] < attackerOrder[2] && marshall === true) {
     defendingSoldiers--;
-    alert('Your marshall has died!')
-  }
-  else if(attackerOrder[2] <= defenderOrder[1] && marshall === true && general === true){
+    alert("Your marshall has died!");
+    marshallAlive = false;
+  } else if (
+    attackerOrder[2] <= defenderOrder[1] &&
+    marshall === true &&
+    general === true
+  ) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[2] <= defenderOrder[1] && marshall === true){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[2] <= defenderOrder[1] && marshall === true) {
     attackingSoldiers--;
-  }
-  else if(attackerOrder[2] > defenderOrder[1] && general === true){
+  } else if (attackerOrder[2] > defenderOrder[1] && general === true) {
     defendingSoldiers--;
-  } 
-  else if(attackerOrder[2] <= defenderOrder[1] && general === true){
+  } else if (attackerOrder[2] <= defenderOrder[1] && general === true) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[2] > defenderOrder[1]){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[2] > defenderOrder[1]) {
     defendingSoldiers--;
-  } else{
+  } else {
     attackingSoldiers--;
   }
-  if(attackerOrder[1] > defenderOrder[0]){
+  if (attackerOrder[1] > defenderOrder[0]) {
     defendingSoldiers--;
-  } else{
+  } else {
     attackingSoldiers--;
   }
 
-  console.log(attackingSoldiers + ' attacking army');
-  console.log(defendingSoldiers + ' defending army');
+  console.log(attackingSoldiers + " attacking army");
+  console.log(defendingSoldiers + " defending army");
 }
 
 function attacker2() {
@@ -135,12 +145,16 @@ function attacker2() {
   let attack2 = Math.floor(Math.random() * 6) + 1;
   let attack3 = Math.floor(Math.random() * 6) + 1;
   let defend1 = Math.floor(Math.random() * 6) + 1;
-  if(generalCounter === 0){
-    var general = confirm('Are you using a general?');
-    }
-    if(marshallCounter === 0){
-      var marshall = confirm('Are you using a marshall?')
-      }
+  if (generalCounter === 0 && generalAlive === false) {
+    var general = confirm("Are you using a general?");
+  } else if (generalAlive === true){
+    general = true;
+  }
+  if (marshallCounter === 0 && marshallAlive === false) {
+    var marshall = confirm("Are you using a marshall?");
+  } else if (marshallAlive === true){
+    marshall= true;
+  } 
 
   //if attack 1 is biggest put it in the front
   if (attack1 >= attack2 && attack1 >= attack3) {
@@ -200,47 +214,51 @@ function attacker2() {
     attackerOrder.unshift(attack3);
   }
 
-  if(general === true && generalCounter === 0){
+  if (general === true && generalCounter === 0) {
     attackerOrder[2]++;
-  } else{
-    generalCounter = 1
+    generalAlive = true;
+  } else {
+    generalCounter = 1;
   }
-  console.log(attackerOrder + ' attack');
+  console.log(attackerOrder + " attack");
 
   //check order of defender dice
-  if(marshall === true && marshallCounter == 0){
+  if (marshall === true && marshallCounter == 0) {
     defend1++;
-  }else{
-    marshallCounter = 1
+    marshallAlive = true;
+  } else {
+    marshallCounter = 1;
   }
- 
-  console.log(defenderOrder + ' defend');
 
-  if(defend1 < attackerOrder[2] && marshall === true){
+  console.log(defenderOrder + " defend");
+
+  if (defend1 < attackerOrder[2] && marshall === true) {
     defendingSoldiers--;
-    alert('Your marshall has died!')
-  }
-  else if(attackerOrder[2] <= defend1 && marshall === true && general === true){
+    alert("Your marshall has died!");
+    marshallAlive = false;
+  } else if (
+    attackerOrder[2] <= defend1 &&
+    marshall === true &&
+    general === true
+  ) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[2] <= defend1 && marshall === true){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[2] <= defend1 && marshall === true) {
     attackingSoldiers--;
-  }
-  else if(attackerOrder[2] > defend1 && general === true){
+  } else if (attackerOrder[2] > defend1 && general === true) {
     defendingSoldiers--;
-  } 
-  else if(attackerOrder[2] <= defend1 && general === true){
+  } else if (attackerOrder[2] <= defend1 && general === true) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[2] > defend1){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[2] > defend1) {
     defendingSoldiers--;
-  } else{
+  } else {
     attackingSoldiers--;
   }
-  console.log(attackingSoldiers + ' attacking army');
-  console.log(defendingSoldiers + ' defending army');
+  console.log(attackingSoldiers + " attacking army");
+  console.log(defendingSoldiers + " defending army");
 }
 
 function attacker3() {
@@ -251,76 +269,83 @@ function attacker3() {
   let attack3 = Math.floor(Math.random() * 6) + 1;
   let defend1 = Math.floor(Math.random() * 6) + 1;
   let defend2 = Math.floor(Math.random() * 6) + 1;
-  if(generalCounter === 0){
-    var general = confirm('Are you using a general?');
-    }
-    if(marshallCounter === 0){
-      var marshall = confirm('Are you using a marshall?')
-      }
+  if (generalCounter === 0 && generalAlive === false) {
+    var general = confirm("Are you using a general?");
+  } else if (generalAlive === true){
+    general = true;
+  }
+  if (marshallCounter === 0 && marshallAlive === false) {
+    var marshall = confirm("Are you using a marshall?");
+  } else if (marshallAlive === true){
+    marshall= true;
+  } 
 
-  if(attack1>=attack2){
+  if (attack1 >= attack2) {
     attackerOrder.unshift(attack1);
     attackerOrder.unshift(attack2);
-} else{
-  attackerOrder.unshift(attack2);
-  attackerOrder.unshift(attack1);
-}
-  
-if(general === true && generalCounter === 0){
-  attackerOrder[1]++;
-} else{
-  generalCounter = 1
-}
-  console.log(attackerOrder + ' attack');
+  } else {
+    attackerOrder.unshift(attack2);
+    attackerOrder.unshift(attack1);
+  }
+
+  if (general === true && generalCounter === 0) {
+    attackerOrder[1]++;
+    generalAlive = true;
+  } else {
+    generalCounter = 1;
+  }
+  console.log(attackerOrder + " attack");
 
   //check order of defender dice
-  if(defend1>=defend2){
-      defenderOrder.unshift(defend1);
-      defenderOrder.unshift(defend2);
-  } else{
+  if (defend1 >= defend2) {
+    defenderOrder.unshift(defend1);
+    defenderOrder.unshift(defend2);
+  } else {
     defenderOrder.unshift(defend2);
     defenderOrder.unshift(defend1);
   }
-  if(marshall === true && marshallCounter == 0){
+  if (marshall === true && marshallCounter == 0) {
     defenderOrder[1]++;
-  }else{
-    marshallCounter = 1
+    marshallAlive = true;
+  } else {
+    marshallCounter = 1;
   }
 
-  console.log(defenderOrder + ' defend');
+  console.log(defenderOrder + " defend");
 
-  if(defenderOrder[1] < attackerOrder[1] && marshall === true){
+  if (defenderOrder[1] < attackerOrder[1] && marshall === true) {
     defendingSoldiers--;
-    alert('Your marshall has died!')
-  }
-  else if(attackerOrder[1] <= defenderOrder[1] && marshall === true && general === true){
+    alert("Your marshall has died!");
+    marshallAlive = false;
+  } else if (
+    attackerOrder[1] <= defenderOrder[1] &&
+    marshall === true &&
+    general === true
+  ) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[1] <= defenderOrder[1] && marshall === true){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[1] <= defenderOrder[1] && marshall === true) {
     attackingSoldiers--;
-  }
-  
-  else if(attackerOrder[1] > defenderOrder[1] && general === true){
+  } else if (attackerOrder[1] > defenderOrder[1] && general === true) {
     defendingSoldiers--;
-  } 
-  else if(attackerOrder[1] <= defenderOrder[1] && general === true){
+  } else if (attackerOrder[1] <= defenderOrder[1] && general === true) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[1] > defenderOrder[1]){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[1] > defenderOrder[1]) {
     defendingSoldiers--;
-  } else{
+  } else {
     attackingSoldiers--;
   }
-  if(attackerOrder[0] > defenderOrder[0]){
+  if (attackerOrder[0] > defenderOrder[0]) {
     defendingSoldiers--;
-  } else{
+  } else {
     attackingSoldiers--;
   }
 
-  console.log(attackingSoldiers + ' attacking army');
-  console.log(defendingSoldiers + ' defending army');
+  console.log(attackingSoldiers + " attacking army");
+  console.log(defendingSoldiers + " defending army");
 }
 
 function attacker4() {
@@ -331,92 +356,96 @@ function attacker4() {
   let attack3 = Math.floor(Math.random() * 6) + 1;
   let defend1 = Math.floor(Math.random() * 6) + 1;
   let defend2 = Math.floor(Math.random() * 6) + 1;
-  if(generalCounter === 0){
-    var general = confirm('Are you using a general?');
-    }
-    if(marshallCounter === 0){
-      var marshall = confirm('Are you using a marshall?')
-      }
+  if (generalCounter === 0 && generalAlive === false) {
+    var general = confirm("Are you using a general?");
+  } else if (generalAlive === true){
+    general = true;
+  }
+  if (marshallCounter === 0 && marshallAlive === false) {
+    var marshall = confirm("Are you using a marshall?");
+  } else if (marshallAlive === true){
+    marshall= true;
+  } 
 
-  if(attack1>=attack2){
+  if (attack1 >= attack2) {
     attackerOrder.unshift(attack1);
     attackerOrder.unshift(attack2);
-} else{
-  attackerOrder.unshift(attack2);
-  attackerOrder.unshift(attack1);
-}
-  
-if(general === true && generalCounter === 0){
-  attackerOrder[1]++;
-} else{
-  generalCounter = 1
-}
-  console.log(attackerOrder + ' attack');
+  } else {
+    attackerOrder.unshift(attack2);
+    attackerOrder.unshift(attack1);
+  }
+
+  if (general === true && generalCounter === 0) {
+    attackerOrder[1]++;
+    generalAlive = true;
+  } else {
+    generalCounter = 1;
+  }
+  console.log(attackerOrder + " attack");
 
   //check order of defender dice
-  if(marshall === true && marshallCounter == 0){
+  if (marshall === true && marshallCounter == 0) {
     defend1++;
-  }else{
-    marshallCounter = 1
+    marshallAlive = true;
+  } else {
+    marshallCounter = 1;
   }
-  console.log(defend1 + ' defend');
+  console.log(defend1 + " defend");
 
-  if(defend1 < attackerOrder[1] && marshall === true){
+  if (defend1 < attackerOrder[1] && marshall === true) {
     defendingSoldiers--;
-    alert('Your marshall has died!')
-  }
-  else if(attackerOrder[1] <= defend1 && marshall === true && general === true){
+    alert("Your marshall has died!");
+    marshallAlive = false;
+  } else if (
+    attackerOrder[1] <= defend1 &&
+    marshall === true &&
+    general === true
+  ) {
     attackingSoldiers--;
-    alert('Your general has died!')
-  }
-  else if(attackerOrder[1] <= defend1 && marshall === true){
+    alert("Your general has died!");
+    generalAlive = false;
+  } else if (attackerOrder[1] <= defend1 && marshall === true) {
     attackingSoldiers--;
-  }
-  else if(attackerOrder[1] <= defend1 && marshall === true){
+  } else if (attackerOrder[1] <= defend1 && marshall === true) {
     attackingSoldiers--;
-  }
-  
-  else if(attackerOrder[1] > defend1 && general === true){
+  } else if (attackerOrder[1] > defend1 && general === true) {
     defendingSoldiers--;
-  } 
-  else if(attackerOrder[1] <= defend1 && general === true){
+  } else if (attackerOrder[1] <= defend1 && general === true) {
     attackingSoldiers--;
-    alert('Your general has died!')
+    alert("Your general has died!");
+    generalAlive = false;
   }
-  if(attackerOrder[1] > defend1){
+  if (attackerOrder[1] > defend1) {
     defendingSoldiers--;
-  } else{
+  } else {
     attackingSoldiers--;
   }
 
-  console.log(attackingSoldiers + ' attacking army');
-  console.log(defendingSoldiers + ' defending army');
+  console.log(attackingSoldiers + " attacking army");
+  console.log(defendingSoldiers + " defending army");
 }
 
-
-while(attackingSoldiers >= 3 && defendingSoldiers >=2){
-    attacker1();
+while (attackingSoldiers >= 3 && defendingSoldiers >= 2) {
+  attacker1();
 }
 
-while(attackingSoldiers >= 3 && defendingSoldiers === 1){
+while (attackingSoldiers >= 3 && defendingSoldiers === 1) {
   attacker2();
 }
 
-
-while(attackingSoldiers === 2 && defendingSoldiers >= 2){
+while (attackingSoldiers === 2 && defendingSoldiers >= 2) {
   attacker3();
 }
 
-while(attackingSoldiers === 2 && defendingSoldiers === 1){
+while (attackingSoldiers === 2 && defendingSoldiers === 1) {
   attacker4();
 }
-if(attackingSoldiers > defendingSoldiers){
-  console.log('attacking army won!');
-  alert('attacking army won! ' + attackingSoldiers+ ' soldiers survived.');
-} else{
-  console.log('defending army won!');
-  alert('defending army won! '+ defendingSoldiers + ' soldiers survived.');
-
+if (attackingSoldiers > defendingSoldiers) {
+  console.log("attacking army won!");
+  alert("attacking army won! " + attackingSoldiers + " soldiers survived.");
+} else {
+  console.log("defending army won!");
+  alert("defending army won! " + defendingSoldiers + " soldiers survived.");
 }
 
 location.reload();
