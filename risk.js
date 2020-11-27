@@ -402,7 +402,8 @@ while(attackingSoldiers >= 3 && defendingSoldiers === 1){
   attacker2();
 }
 
-while(attackingSoldiers === 2 && defendingSoldiers === 2){
+
+while(attackingSoldiers === 2 && defendingSoldiers >= 2){
   attacker3();
 }
 
@@ -411,10 +412,11 @@ while(attackingSoldiers === 2 && defendingSoldiers === 1){
 }
 if(attackingSoldiers > defendingSoldiers){
   console.log('attacking army won!');
-  alert('attacking army won!');
+  alert('attacking army won! ' + attackingSoldiers+ ' soldiers survived.');
 } else{
   console.log('defending army won!');
-  alert('defending army won!');
+  alert('defending army won! '+ defendingSoldiers + ' soldiers survived.');
+
 }
 
 location.reload();
